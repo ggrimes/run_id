@@ -29,7 +29,7 @@ process combine_ids {
  tuple(val(sampleID),path(bam)) from bam_ch;
 
  output:
- path("${sampleID}_header.txt")into header_ch
+ path("${sampleprefix}_header.txt")into header_ch
 
 
  script:
