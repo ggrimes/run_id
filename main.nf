@@ -2,7 +2,7 @@
 /*
 input params
 */
-params.bam='alignment/*.{bam,bai}
+params.bam='alignment/*.{bam,bai}'
 
 
 
