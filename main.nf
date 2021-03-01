@@ -14,6 +14,7 @@ log.info """\
          R N A S E Q - N F   P I P E L I N E
          ===================================
          bamPattern:         : ${params.bam}
+         replacePattern:     : ${params.replace}
          """
          .stripIndent()
 
@@ -34,7 +35,7 @@ process combine_ids {
 
  script:
  //remove pattern
- sampleprefix=sampleID.replaceAll(/params.replace/, "")
+ sampleprefix=sampleID.replaceAll(/${params.replace}/, "")
  """
  ##samtools index ${bam}
  printf "${sampleprefix}\t" > ${sampleprefix}_header.txt
