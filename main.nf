@@ -3,6 +3,7 @@
 input params
 */
 params.bam='alignment/*.{bam,bai}'
+params.replace=''
 
 
 
@@ -32,6 +33,8 @@ process combine_ids {
 
 
  script:
+ //remove pattern
+ sampleID=sampleID.replaceAll(/params.replace/, "")
  """
  ##samtools index ${bam}
  printf "${sampleID}\t" > ${sampleID}_header.txt
