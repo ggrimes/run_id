@@ -2,7 +2,7 @@
 /*
 input params
 */
-params.bam='*.bam'
+params.bam='alignment/*.{bam,bai}
 
 
 
@@ -17,22 +17,23 @@ log.info """\
          .stripIndent()
 
 
-bam_ch = Channel.fromPath(params.bam)
+         Channel
+             .fromFilePairs(params.bam) { file -> file.name.replaceAll(/.bam|.bai$/,'') }
+             .set { bam_ch }
 
 
 process combine_ids {
 
  input:
- path(bam) from bam_ch;
+ tuple(val(sampleID),path(bam)) from bam_ch;
 
  output:
  path("${sampleID}_header.txt")into header_ch
 
 
  script:
- sampleID = bam.baseName
  """
- samtools index ${bam}
+ //samtools index ${bam}
  printf "${sampleID}\t" > ${sampleID}_header.txt
  samtools view ${bam} |head -n1|cut -f1 |tr ":" "\t" >> ${sampleID}_header.txt
  """
