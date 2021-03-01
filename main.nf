@@ -33,7 +33,7 @@ process combine_ids {
 
  script:
  """
- //samtools index ${bam}
+ ##samtools index ${bam}
  printf "${sampleID}\t" > ${sampleID}_header.txt
  samtools view ${bam} |head -n1|cut -f1 |tr ":" "\t" >> ${sampleID}_header.txt
  """
