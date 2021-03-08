@@ -35,11 +35,11 @@ process combine_ids {
 
  script:
  //remove pattern
- sampleprefix=sampleID.replaceAll(/Pattern.quote(${params.replace})/, "")
+ sampleprefix=sampleID.replace("${params.replace}", "")
  """
  ##samtools index ${bam}
  printf "${sampleprefix}\t" > ${sampleprefix}_header.txt
- samtools view ${sampleID}.bam |head -n1|cut -f1 |tr ":" "\t" >> ${sampleprefix}_header.txt
+ samtools view ${bam} |head -n1|cut -f1 |tr ":" "\t" >> ${sampleprefix}_header.txt
  printf "\n" >> ${sampleprefix}_header.txt
  """
 }
